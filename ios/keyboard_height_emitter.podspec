@@ -1,9 +1,9 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint keyboard_height_plugin.podspec` to validate before publishing.
+# Run `pod lib lint keyboard_height_emitter.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'keyboard_height_plugin'
+  s.name             = 'keyboard_height_emitter'
   s.version          = '0.0.1'
   s.summary          = 'A new Flutter plugin project.'
   s.description      = <<-DESC

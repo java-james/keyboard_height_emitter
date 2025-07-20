@@ -1,4 +1,4 @@
-package com.nschairer.keyboard_height_plugin
+package com.javajames.keyboard_height_emitter
 import android.graphics.Rect
 import android.os.Build
 import androidx.annotation.NonNull
@@ -9,7 +9,7 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 
-class KeyboardHeightPlugin : FlutterPlugin, EventChannel.StreamHandler, ActivityAware {
+class KeyboardHeightEmitter : FlutterPlugin, EventChannel.StreamHandler, ActivityAware {
     private val keyboardHeightEventChannelName = "keyboardHeightEventChannel"
     private var eventSink: EventChannel.EventSink? = null
     private var eventChannel: EventChannel? = null

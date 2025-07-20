@@ -1,6 +1,6 @@
-# keyboard_height_plugin_example
+# keyboard_height_emitter_example
 
-Demonstrates how to use the keyboard_height_plugin plugin.
+Demonstrates how to use the keyboard_height_emitter plugin.
 
 ## Getting Started
 

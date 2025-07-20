@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nschairer.keyboard_height_plugin_example">
+    package="com.nschairer.keyboard_height_emitter_example">
    <application
-        android:label="keyboard_height_plugin_example"
+        android:label="keyboard_height_emitter_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

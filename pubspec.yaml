@@ -1,7 +1,7 @@
-name: keyboard_height_plugin
-description: Flutter plugin that emits keyboard height before it shows (ios/android)
-version: 0.1.5
-repository: https://github.com/nschairer/keyboard_height_plugin
+name: keyboard_height_emitter
+description: Emit the keyboard height before it shows on iOS and Android.
+version: 0.0.1
+repository: https://github.com/java-james/keyboard_height_emitter
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -35,10 +35,10 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.nschairer.keyboard_height_plugin
-        pluginClass: KeyboardHeightPlugin
+        package: com.javajames.keyboard_height_emitter
+        pluginClass: KeyboardHeightEmitter
       ios:
-        pluginClass: KeyboardHeightPlugin
+        pluginClass: KeyboardHeightEmitter
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

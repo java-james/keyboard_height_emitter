@@ -1,4 +1,4 @@
-group 'com.nschairer.keyboard_height_plugin'
+group 'com.javajames.keyboard_height_emitter'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -44,6 +44,6 @@ android {
         minSdkVersion 16
     }
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.nschairer.keyboard_height_plugin'
+        namespace 'com.javajames.keyboard_height_emitter'
     }
 }

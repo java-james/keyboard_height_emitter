@@ -1,12 +1,12 @@
 import Flutter
 import UIKit
 
-public class KeyboardHeightPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class KeyboardHeightEmitter: NSObject, FlutterPlugin, FlutterStreamHandler {
   private var eventSink: FlutterEventSink?
   private var eventChannel: FlutterEventChannel?
 
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let instance = KeyboardHeightPlugin()
+    let instance = KeyboardHeightEmitter()
     instance.eventChannel = FlutterEventChannel(name: "keyboardHeightEventChannel", binaryMessenger: registrar.messenger())
     instance.eventChannel?.setStreamHandler(instance)
   }
