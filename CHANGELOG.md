@@ -1,3 +1,3 @@
-## 0.0.1
+## 1.0.0
 
-* Initial release.
+* Initial release: supports broadcast stream from keyboard height event channel.
