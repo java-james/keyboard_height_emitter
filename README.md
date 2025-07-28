@@ -2,7 +2,9 @@
 
 Credit to the keyboard_height_plugin author at https://github.com/nschairer/keyboard_height_plugin/tree/main
 
-This fork fixes the issue where you can only use it on a single route at a time, pushing a new route with the plugin would silently drop the listener on the route under it.
+This up to date fork fixes a couple of issues with the plugin:
+- you could only use it on a single route at a time, pushing a new route with the plugin would silently drop the listener on the route under it.
+- Modern android devices have a toolbar included on the keyboard. The hight wasn't being reported.
 
 `keyboard_height_emitter` is a Flutter plugin for iOS and Android that provides the keyboard size before the keyboard animation occurs for showing or hiding it. This helps eliminate lag when positioning widgets around the keyboard, such as placing a TextField above the keyboard.
 
