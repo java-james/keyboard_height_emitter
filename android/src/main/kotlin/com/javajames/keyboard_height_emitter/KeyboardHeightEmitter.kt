@@ -1,13 +1,14 @@
 package com.javajames.keyboard_height_emitter
+
 import android.graphics.Rect
 import android.os.Build
-import androidx.annotation.NonNull
 import android.view.ViewTreeObserver
-import androidx.annotation.RequiresApi
+import android.view.WindowInsets
+import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.EventChannel
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.EventChannel
 
 class KeyboardHeightEmitter : FlutterPlugin, EventChannel.StreamHandler, ActivityAware {
     private val keyboardHeightEventChannelName = "keyboardHeightEventChannel"
@@ -15,8 +16,11 @@ class KeyboardHeightEmitter : FlutterPlugin, EventChannel.StreamHandler, Activit
     private var eventChannel: EventChannel? = null
     private var activityPluginBinding: ActivityPluginBinding? = null
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, keyboardHeightEventChannelName)
+    override fun onAttachedToEngine(
+            @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
+    ) {
+        eventChannel =
+                EventChannel(flutterPluginBinding.binaryMessenger, keyboardHeightEventChannelName)
         eventChannel?.setStreamHandler(this)
     }
 
@@ -27,27 +31,35 @@ class KeyboardHeightEmitter : FlutterPlugin, EventChannel.StreamHandler, Activit
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         eventSink = events
         val rootView = activityPluginBinding?.activity?.window?.decorView?.rootView
-        rootView?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                val r = Rect()
-                rootView.getWindowVisibleDisplayFrame(r)
+        rootView?.viewTreeObserver?.addOnGlobalLayoutListener(
+                object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        val windowHeight = rootView.height
+                        val r = Rect()
 
-                val screenHeight = rootView.height
-                val navigationBarHeight = getNavigationBarHeight();
-                var keypadHeight = screenHeight - r.bottom
-                if (isNavigationBarVisible()) {
-                    keypadHeight -= navigationBarHeight
-                }
-                val displayMetrics = activityPluginBinding?.activity?.resources?.displayMetrics
-                val logicalKeypadHeight = keypadHeight / (displayMetrics?.density ?: 1f)
+                        rootView.getWindowVisibleDisplayFrame(r)
 
-                if (keypadHeight > screenHeight * 0.15) {
-                    events?.success(logicalKeypadHeight.toDouble())
-                } else {
-                    events?.success(0.0)
+                        val fallbackKeyboardHeight = windowHeight - r.bottom
+
+                        val imeHeight =
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                                        rootView.rootWindowInsets?.getInsets(
+                                                        WindowInsets.Type.ime()
+                                                )
+                                                ?.bottom
+                                                ?: 0
+                                else fallbackKeyboardHeight
+
+                        val metrics = activityPluginBinding?.activity?.resources?.displayMetrics
+                        val logicalKeypadHeight = imeHeight / (metrics?.density ?: 1f)
+
+                        events?.success(
+                                if (imeHeight > windowHeight * 0.15) logicalKeypadHeight.toDouble()
+                                else 0.0
+                        )
+                    }
                 }
-            }
-        })
+        )
     }
 
     override fun onCancel(arguments: Any?) {
@@ -55,7 +67,12 @@ class KeyboardHeightEmitter : FlutterPlugin, EventChannel.StreamHandler, Activit
     }
 
     private fun getNavigationBarHeight(): Int {
-        val resourceId = activityPluginBinding?.activity?.resources?.getIdentifier("navigation_bar_height", "dimen", "android")
+        val resourceId =
+                activityPluginBinding?.activity?.resources?.getIdentifier(
+                        "navigation_bar_height",
+                        "dimen",
+                        "android"
+                )
         return if (resourceId != null && resourceId > 0) {
             activityPluginBinding?.activity?.resources?.getDimensionPixelSize(resourceId) ?: 0
         } else {
@@ -73,7 +90,7 @@ class KeyboardHeightEmitter : FlutterPlugin, EventChannel.StreamHandler, Activit
             systemWindowInsetBottom > 0
         }
     }
-    
+
     // Implement ActivityAware methods
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activityPluginBinding = binding
