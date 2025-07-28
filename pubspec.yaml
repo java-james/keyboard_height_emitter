@@ -1,6 +1,6 @@
 name: keyboard_height_emitter
 description: Emit the keyboard height before it shows on iOS and Android.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/java-james/keyboard_height_emitter
 
 environment:
